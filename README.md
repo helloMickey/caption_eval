@@ -8,6 +8,7 @@ fork from [ruotianluo/coco-caption](https://github.com/ruotianluo/coco-caption)
 - You will first need to download the Stanford CoreNLP 3.6.0 code and models for use by SPICE. To do this, run: bash get_stanford_models.sh
 - Note: SPICE will try to create a cache of parsed sentences in ./pycocoevalcap/spice/cache/. This dramatically speeds up repeated evaluations. The cache directory can be moved by setting 'CACHE_DIR' in ./pycocoevalcap/spice. In the same file, caching can be turned off by removing the '-cache' argument to 'spice_cmd'.
 - You will also need to download the Google News negative 300 word2vec model for use by WMD. To do this, run: bash get_google_word2vec_model.sh
+
 For custom caption eval:
 
 [kracwarlock/demo_cocoeval.py](https://gist.github.com/kracwarlock/c979b10433fe4ac9fb97)
