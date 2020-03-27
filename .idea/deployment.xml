@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="121">
+    <serverData>
+      <paths name="121">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/caption_eval" local="$PROJECT_DIR$" web="" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
