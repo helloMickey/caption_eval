@@ -1,3 +1,4 @@
+.idea
 *.pyc
 pycocoevalcap/spice/lib/stanford-corenlp-3.6.0.jar
 pycocoevalcap/spice/lib/stanford-corenlp-3.6.0-models.jar
