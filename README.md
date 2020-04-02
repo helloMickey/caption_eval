@@ -35,6 +35,21 @@ Script to evaluate Bleu, METEOR, CIDEr and ROUGE_L for any dataset using the coc
     calculate_metrics(rng, datasetGTS, datasetRES)
 
 ```
+and in `custom_caption_eval.py` select what are the criteria of your task.
+```python
+        # =================================================
+        # Set up scorers
+        # =================================================
+        print('setting up scorers...')
+        scorers = [
+            (Bleu(4), ["Bleu_1", "Bleu_2", "Bleu_3", "Bleu_4"]),
+            (Meteor(), "METEOR"),
+            (Rouge(), "ROUGE_L"),
+            (Cider(), "CIDEr"),
+            # (Spice(), "SPICE"),
+            # (WMD(),   "WMD"),
+        ]
+```
 
 ## Fixed bugs in  [ruotianluo/coco-caption](https://github.com/ruotianluo/coco-caption)
 `pycocoevalcap/tokenizer/ptbtokenizer.py`:
