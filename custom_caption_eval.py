@@ -43,8 +43,8 @@ class COCOEvalCap:
             (Meteor(), "METEOR"),
             (Rouge(), "ROUGE_L"),
             (Cider(), "CIDEr"),
-            # (Spice(), "SPICE"),
-            # (WMD(),   "WMD"),
+            (Spice(), "SPICE"),
+            (WMD(),   "WMD"),
         ]
 
         # =================================================

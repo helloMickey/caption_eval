@@ -1,13 +1,18 @@
 ## Description
 A **python3** caption eval lib, for MS COCO caption  and custom-task caption evaluation.
 
+- Python3
+- Linux with java-1.8
+
 For coco caption eval: 
 
 fork from [ruotianluo/coco-caption](https://github.com/ruotianluo/coco-caption)
  
-- You will first need to download the Stanford CoreNLP 3.6.0 code and models for use by SPICE. To do this, run: bash get_stanford_models.sh
+- You will first need to download the Stanford CoreNLP 3.6.0 code and models for use by SPICE. To do this, run: `bash get_stanford_models.sh`
 - Note: SPICE will try to create a cache of parsed sentences in ./pycocoevalcap/spice/cache/. This dramatically speeds up repeated evaluations. The cache directory can be moved by setting 'CACHE_DIR' in ./pycocoevalcap/spice. In the same file, caching can be turned off by removing the '-cache' argument to 'spice_cmd'.
-- You will also need to download the Google News negative 300 word2vec model for use by WMD. To do this, run: bash get_google_word2vec_model.sh
+- You will also need to download the Google News negative 300 word2vec model for use by WMD. To do this, run: `bash get_google_word2vec_model.sh`
+
+By running `get_stanford_models.sh` & `get_google_word2vec_model.sh`,`stanford-corenlp-3.6.0.jar` `stanford-corenlp-3.6.0-models.jar`&`GoogleNews-vectors-negative300.bin` will appear in `pycocoevalcap/spice/lib` & `pycocoevalcap/wmd/data`. 
 
 For custom caption eval:
 
@@ -44,17 +49,25 @@ and in `custom_caption_eval.py` select what are the criteria of your task.
         scorers = [
             (Bleu(4), ["Bleu_1", "Bleu_2", "Bleu_3", "Bleu_4"]),
             (Meteor(), "METEOR"),
-            (Rouge(), "ROUGE_L"),
+            # (Rouge(), "ROUGE_L"),
             (Cider(), "CIDEr"),
-            # (Spice(), "SPICE"),
+            (Spice(), "SPICE"),
             # (WMD(),   "WMD"),
         ]
 ```
 
 ## Fixed bugs in  [ruotianluo/coco-caption](https://github.com/ruotianluo/coco-caption)
+
+First use command `which java` to get absolute java path, such as `/usr/java/jdk1.8.0_191/bin/java`.
+for error like:
+
+    No such file or directory: 'java': 'java'
+    
+replace 'jave' with absolute java path.
+### case 1
 `pycocoevalcap/tokenizer/ptbtokenizer.py`:
 
-replace the path of `java`, and add `shell=True` in subprocess.Popen()
+Replace the path of `java`, and add `shell=True` in subprocess.Popen()
 
 replace
     
@@ -72,7 +85,7 @@ replace
 with
 
     ....
-    cmd = ['/usr/java/jdk1.8.0_191/bin/java -cp stanford-corenlp-3.4.1.jar edu.stanford.nlp.process.PTBTokenizer -preserveLines -lowerCase ']
+    cmd = ['/***absolute java path***/java -cp stanford-corenlp-3.4.1.jar edu.stanford.nlp.process.PTBTokenizer -preserveLines -lowerCase ']
     cmd[0] += os.path.join(path_to_jar_dirname, os.path.basename(tmp_file.name))
     # add shell=True
     p_tokenizer = subprocess.Popen(cmd, cwd=path_to_jar_dirname, \
@@ -86,9 +99,11 @@ ERROR like:
         self.lock.acquire()
     AttributeError: 'Meteor' object has no attribute 'lock'
 
-
+### case 2
 `pycocoevalcap/meteor/meteor.py`:
-replace the path of `java`.
+
+Replace the path of java with absolute path.
+
 replace
 
        ....
@@ -99,6 +114,30 @@ replace
 with
 
        ....
-       self.meteor_cmd = ['/usr/java/jdk1.8.0_191/bin/java', '-jar', '-Xmx2G', METEOR_JAR, \
+       self.meteor_cmd = ['/***absolute java path***/java', '-jar', '-Xmx2G', METEOR_JAR, \
                '-', '-', '-stdio', '-l', 'en', '-norm']
+       ....
+### case 3
+In `pycocoevalcap/spice/spice.py`:
+
+replace
+
+       ....
+        spice_cmd = ['java', '-jar', '-Xmx8G', SPICE_JAR, in_file.name,
+          '-cache', self.cache_dir,
+          '-out', out_file.name,
+          '-subset',
+          '-silent'
+        ]
+       ....
+       
+with
+
+       ....
+        spice_cmd = ['/***absolute java path***/java', '-jar', '-Xmx8G', SPICE_JAR, in_file.name,
+          '-cache', self.cache_dir,
+          '-out', out_file.name,
+          '-subset',
+          '-silent'
+        ]
        ....
