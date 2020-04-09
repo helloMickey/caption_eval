@@ -1,7 +1,10 @@
+#[Caption evaluation repo](https://github.com/helloMickey/caption_eval)
 ## Description
-A **python3** caption eval lib, for MS COCO caption  and custom-task caption evaluation.
+A **python3** caption eval lib, for MS COCO caption  and custom task caption evaluation.
 
-- Python3
+Requirements:
+
+ Python3
 - Linux with java-1.8
 
 For coco caption eval: 
