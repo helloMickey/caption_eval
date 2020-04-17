@@ -23,6 +23,11 @@ For custom caption eval:
 
 ## Custom caption eval
 Script to evaluate Bleu, METEOR, CIDEr and ROUGE_L for any dataset using the coco evaluation api. Just requires the pycocoevalcap folder.
+
+**Each image_id can only have one hypothesis caption, but can have multiple reference captions(ground truth)**
+
+Repeated reference captions will not affect the BLEU & METEOR score, but can lower CIDer score.
+
 ```python
     from custom_caption_eval.pyimport calculate_metrics
     rng = range(2)
